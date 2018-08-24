@@ -1,20 +1,20 @@
-lazy val akkaHttpVersion = "10.0.9"
-lazy val akkaVersion    = "2.5.3"
+name := "uberdata-analysis"
 
-lazy val root = (project in file(".")).
-  settings(
-    inThisBuild(List(
-      scalaHome       := Some(file("/opt/scala")),
-      scalaVersion    := "2.11.11",
-      organization    := "com.redhat.gpte"
-    )),
-    name := "uber-data-lab2",
-    version := "0.1",
-    mainClass in assembly := Some("com.redhat.gpte.Main"),
-    libraryDependencies ++= Seq(
-      "com.typesafe.akka" %% "akka-http"         % akkaHttpVersion,
-      "com.typesafe.akka" %% "akka-http-xml"     % akkaHttpVersion,
-      "com.typesafe.akka" %% "akka-stream"       % akkaVersion,
-      "org.apache.spark"  %  "spark-sql_2.11"     % "2.3.0"  % "provided"
-    )
-  )
+version := "0.1"
+mainClass in assembly := Some("com.redhat.gpte.Main"),
+scalaVersion := "2.11.8"
+
+val sparkVersion = "2.3.0"
+
+
+resolvers ++= Seq(
+  "apache-snapshots" at "http://repository.apache.org/snapshots/"
+)
+
+libraryDependencies ++= Seq(
+  "org.apache.spark" %% "spark-core" % sparkVersion,
+  "org.apache.spark" %% "spark-sql" % sparkVersion,
+  "org.apache.spark" %% "spark-mllib" % sparkVersion,
+  "org.apache.spark" %% "spark-streaming" % sparkVersion,
+  "org.apache.spark" %% "spark-hive" % sparkVersion,
+)
